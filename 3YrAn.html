@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="hi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Happy 3 Years ❤️</title>
+  <style>
+    :root{
+      --pink1: #ff4d6d;
+      --pink2: #ffafcc;
+      --rose: #ff2d95;
+      --card-bg: rgba(255,255,255,0.06);
+      --glass-2: rgba(255,255,255,0.04);
+      --text: #fff;
+      --muted: rgba(255,255,255,0.8);
+    }
+    html,body{height:100%;margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,'Noto Sans',sans-serif;color:var(--text)}
+    body{
+      background: linear-gradient(135deg,var(--pink1),var(--pink2));
+      display:flex;align-items:center;justify-content:center;padding:20px;
+      -webkit-font-smoothing:antialiased;
+    }
+    .wrap{width:100%;max-width:980px;background:linear-gradient(180deg,rgba(255,255,255,0.06),rgba(255,255,255,0.02));border-radius:18px;padding:26px;box-shadow:0 10px 30px rgba(0,0,0,0.2);position:relative;overflow:hidden}
+    header{display:flex;align-items:center;gap:16px}
+    h1{margin:0;font-size: clamp(20px,3.6vw,34px);letter-spacing:0.6px}
+    .sub{color:var(--muted);font-size:14px}
+    .hearts{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+    .heart{position:absolute;width:18px;height:18px;transform:rotate(45deg);background:var(--rose);border-radius:4px;opacity:0.9}
+    .heart::before,.heart::after{content:'';position:absolute;width:18px;height:18px;border-radius:50%;background:var(--rose)}
+    .heart::before{top:-9px;left:0}
+    .heart::after{left:9px;top:0}
+    @keyframes fall{to{transform:translateY(120vh) rotate(180deg);opacity:0}}
+    .content{display:grid;grid-template-columns:1fr 360px;gap:20px}
+    .card{background:var(--card-bg);padding:20px;border-radius:12px;backdrop-filter:blur(6px)}
+    .message{min-height:200px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:18px}
+    .message h2{margin:0 0 8px;font-size:20px}
+    .message p{margin:0;color:var(--muted);line-height:1.5}
+    .controls{display:flex;gap:10px;justify-content:center;margin-top:16px}
+    button{background:transparent;border:1px solid rgba(255,255,255,0.12);padding:10px 14px;border-radius:10px;color:var(--text);cursor:pointer}
+    button.cta{background:linear-gradient(90deg,var(--rose),#ff7aa0);border:0;padding:10px 16px}
+    .right{display:flex;flex-direction:column;gap:14px}
+    .slideshow{height:500px;border-radius:16px;overflow:hidden;background:var(--glass-2);display:flex;align-items:center;justify-content:center}
+    .slideshow img{width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 0.8s ease-in-out}
+    .slideshow img.show{opacity:1}
+    .final{display:flex;flex-direction:column;align-items:center;gap:12px;padding:14px;text-align:center}
+    .final h2{font-size:26px;margin:0}
+    .final p{font-size:15px;color:var(--muted);line-height:1.5;margin:0}
+    .fade-in{animation:fade 450ms ease both}
+    @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+    @media (max-width:880px){.content{grid-template-columns:1fr;}.right{order:2}}
+    footer{display:flex;justify-content:space-between;align-items:center;margin-top:14px;color:var(--muted);font-size:13px}
+    .progress{font-weight:700}
+    /* Celebration Confetti */
+    .confetti{position:fixed;top:0;left:50%;transform:translateX(-50%);width:100%;height:100%;pointer-events:none;overflow:hidden;z-index:999}
+    .piece{position:absolute;width:10px;height:14px;opacity:0.8;animation:falling 4s linear forwards}
+    @keyframes falling{
+      0%{transform:translateY(-10%) rotate(0deg)}
+      100%{transform:translateY(110vh) rotate(720deg)}
+    }
+    /* Custom dialog */
+    .dialog{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.6);z-index:1000;visibility:hidden;opacity:0;transition:0.3s}
+    .dialog.show{visibility:visible;opacity:1}
+    .dialog-box{background:var(--card-bg);padding:20px 30px;border-radius:14px;text-align:center;backdrop-filter:blur(8px);max-width:320px}
+    .dialog-box h3{margin:0 0 10px;font-size:20px}
+    /* Music button */
+    .music-control{text-align:center;margin-top:16px}
+    .music-btn{background:linear-gradient(90deg,var(--rose),#ff7aa0);border:0;margin-bottom: 8px; padding:10px 16px;border-radius:10px;color:#fff;cursor:pointer;font-weight:600}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="hearts" id="hearts"></div>
+    <header>
+      <div>
+        <h1>Happy Anniversary <span style="color:#fff; text-shadow:0 3px 10px rgba(0,0,0,0.15)">Yashfin</span> ❤️</h1>
+        <div class="sub">Happy 3 years!</div>
+      </div>
+      <div style="margin-left:auto;text-align:right"><div class="sub">Made with ♥ by Ayaan</div></div>
+    </header>
+
+    <main style="margin-top:18px" class="content">
+      <section class="card">
+        <div id="messageArea" class="message"></div>
+        <div class="controls">
+          <button id="prevBtn">◀ Pichhe</button>
+          <button id="nextBtn" class="cta">Aage ▶</button>
+        </div>
+        <footer>
+          <div class="progress" id="progress">1 / 10</div>
+        </footer>
+        <div class="card final" id="finalCard" style="display:block">
+          <h2>Happy 3 years, Yashfin! 🎉</h2>
+          <p>
+            3 saal ki yeh kahani mere liye zindagi ka sabse khoobsurat hissa hai.<br>
+            Har muskaan, har yaad, aur har lamha tumhare saath ek naya sapna ban gaya.<br>
+            Yashfin, tum meri mohobbat ho, meri dua ho, aur meri zindagi ka sabse pyara tohfa. ❤️
+          </p>
+          <p class="sub">Thank you for every single memory. Here's to many more.</p>
+          <h3 style="margin:8px 0 0">Ready for the next chapter, Yashfin?</h3>
+          <div style="display:flex;gap:10px;margin-top:10px">
+            <button id="alwaysBtn" class="cta">Haan, hamesha ❤️</button>
+            <button id="restartBtn">Dobara yaadein padho 🔄</button>
+          </div>
+        </div>
+        <div class="music-control">
+          <audio id="bg-music" loop>
+            <source src="music.mp3" type="audio/mp3">
+          </audio>
+          <button class="music-btn" onclick="toggleMusic()">🎶 Play / Pause Music</button>
+        </div>
+      </section>
+
+      <aside class="up-right">
+        <div class="card slideshow"><img id="mainPhoto" src="" alt="Memory photo" class="show"></div>
+      </aside>
+
+    </main>
+  </div>
+
+  <!-- Confetti container -->
+  <div class="confetti" id="confetti"></div>
+
+  <!-- Custom dialog -->
+  <div class="dialog" id="dialog">
+    <div class="dialog-box">
+      <h3>Only With YOU ❤️</h3>
+      <p>Tum meri hamesha ki mohobbat ho, Yashfin!</p>
+      <button onclick="closeDialog()" class="cta">Close</button>
+    </div>
+  </div>
+
+  <script>
+    const messages = [
+      {title:'Pehli Nazar',text:'Aaj bhi yaad hai, maine tumhe first time classes mein dekha tha. Tum chashma lagake jokes pe hans rahi thi — sabse khubsurat muskurahat.'},
+      {title:'Pehli Mulaqat',text:'Jab apun ne pehli baar baat ki thi — hasi, mazak aur padhai ke saath. Aaj bhi yaad hai, bas apun hi bolte jaa rahe the.'},
+      {title:'Pehla Ehsaas',text:'Jab pehli baar kuch feel hua tha… woh moment yaad hai mujhe. Apun ne haath maape the, aur woh touch kuch toh alag feel de gaya tha. Fir tum jaate hue chidha kar “bye” boli thi… uff!'},
+      {title:'Pehla Rishta',text:'Jab apun ne Instagram pe baat start ki thi, Maths ke bahane (jisse tumhe chid hai 😅). Dheere dheere ek rishta feel hone laga, jo aur strong hota gaya.'},
+      {title:'Pehla Ishaara',text:'Maine band alfaazon mein tumse izhaar kar hi diya tha — “I like you” bolke. Tum samajh bhi gayi thi aur soch mein pad gayi thi.'},
+      {title:'Pehla Izhaar',text:'Aur aakhir woh din aa hi gaya, 4 September 2022, jab maine finally “I love you” bolke izhaar kar diya. Tumse “haa” sun kar lagaa jaise maine duniya jeet li.'},
+      {title:'Pehli Date',text:'Hamari pehli date ek movie date thi. Main bahut nervous tha, because I wanted to impress you. Jab moment bana, toh maine darte-darte himmat karke tumhe kiss kiya.'},
+      {title:'Pehli Trip',text:'Ghoomne toh ja rahe the movie dekhne, par asal maza toh Wet N Joy trip mein aaya. Wahan apun ne bahut zyada enjoy kiya — jaise ek khud ke world mein couple.'},
+      {title:'Pehli Mohobbat',text:'Tum meri asal pehli mohobbat ho. Tumne mujhe woh feel karaya, jo kehta hai — “Mohobbat kaisi hoti hai.” I really love you, Yashfin.'},
+      {title:'Pehla Tajurba',text:'4 September 2022 se lekar 4 September 2025 tak… inn 3 saalon mein apun bohot grow hue hain. Hamara rishta grow hua hai, understanding aur bond strong hua hai, aur pyaar beyhadd badha hai. Main tumhe hamesha pyaar karunga aur khush rakhunga, Shu.'}
+    ];
+
+    const images = Array.from({length:10},(_,i)=>`${i+1}.jpg`);
+    let idx=0;
+    const messageArea=document.getElementById('messageArea');
+    const progress=document.getElementById('progress');
+    const mainPhoto=document.getElementById('mainPhoto');
+    const finalCard=document.getElementById('finalCard');
+
+    function renderMessage(i){
+      if(i<0) i=0; if(i>messages.length) i=messages.length;
+      if(i===messages.length){
+        document.querySelector('.controls').style.display='none';
+        progress.style.display='none';
+        finalCard.style.display='flex';
+        messageArea.style.display='none';
+        mainPhoto.src='11.jpg';
+        return;
+      }else{
+        document.querySelector('.controls').style.display='flex';
+        progress.style.display='';
+        finalCard.style.display='none';
+        messageArea.style.display='';
+      }
+      const m=messages[i];
+      messageArea.innerHTML=`<h2>${m.title}</h2><p>${m.text}</p>`;
+      messageArea.classList.add('fade-in');
+      setTimeout(()=>messageArea.classList.remove('fade-in'),500);
+      progress.textContent=(i+1)+' / '+messages.length;
+
+      mainPhoto.classList.remove("show");
+      setTimeout(()=>{
+        mainPhoto.src=images[i];
+        mainPhoto.onload=()=>mainPhoto.classList.add("show");
+      },200);
+    }
+
+    document.getElementById('nextBtn').addEventListener('click',()=>{idx++;renderMessage(idx);});
+    document.getElementById('prevBtn').addEventListener('click',()=>{idx--;renderMessage(idx);});
+    document.getElementById('restartBtn').addEventListener('click',()=>{idx=0;renderMessage(idx);});
+    
+    document.getElementById('alwaysBtn').addEventListener('click',()=>{
+      launchConfetti();
+      showDialog();
+    });
+
+    renderMessage(idx);
+
+    // hearts animation
+    const heartsContainer=document.getElementById('hearts');
+    function spawnHeart(){
+      const h=document.createElement('div');h.className='heart';
+      const size=Math.random()*20+12;h.style.width=size+'px';h.style.height=size+'px';
+      h.style.left=Math.random()*100+'%';h.style.top='-10vh';
+      const dur=Math.random()*6+6;h.style.animation=`fall ${dur}s linear forwards`;
+      h.style.opacity=Math.random()*0.7+0.4;
+      heartsContainer.appendChild(h);
+      setTimeout(()=>h.remove(),(dur*1000)+500);
+    }
+    setInterval(()=>{if(Math.random()<0.8)spawnHeart();},700);
+
+    // Confetti
+    function launchConfetti(){
+      const confetti=document.getElementById('confetti');
+      for(let i=0;i<80;i++){
+        const piece=document.createElement('div');
+        piece.className='piece';
+        piece.style.left=Math.random()*100+'%';
+        piece.style.background=`hsl(${Math.random()*360},100%,60%)`;
+        piece.style.animationDuration=(2+Math.random()*3)+'s';
+        confetti.appendChild(piece);
+        setTimeout(()=>piece.remove(),5000);
+      }
+    }
+
+    // Custom dialog
+    function showDialog(){
+      document.getElementById('dialog').classList.add('show');
+    }
+    function closeDialog(){
+      document.getElementById('dialog').classList.remove('show');
+    }
+
+    // Music
+    const music=document.getElementById("bg-music");
+    let isPlaying=false;
+    function toggleMusic(){
+      if(isPlaying){music.pause();}else{music.play();}
+      isPlaying=!isPlaying;
+    }
+  </script>
+</body>
+</html>
